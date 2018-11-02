@@ -13,7 +13,7 @@ def bad_two_sum?(arr, target)
   false
 end
 
-def okay_two_sum?(arr, target)
+def okay_two_sum?(arr, target) # O(n log n)
   sorted = arr.sort
   sorted.each_with_index do |el, i|
     comp = target - el
@@ -40,14 +40,27 @@ def b_search(arr, target)
 end
 
 
-def two_sum? (arr, target)
+def two_sum? (arr, target) # O(n)
   hash = {}
+  count = Hash.new(0)
+  
   arr.each do |num|
     hash[num] = target - num
+    count[num] += 1
   end
-  hash.values.each do |value|
-    return true if hash[value] unless hash[value] == value
+
+  hash.values.each do |value|  
+    if hash[value]
+      
+      if value == hash[value]
+        return true if count[value] > 1
+      else
+        return true
+      end
+      
+    end
   end
+  
   false
 end
 
